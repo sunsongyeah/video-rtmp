@@ -1,0 +1,45 @@
+<!-- Created by sunsong on 2017.2.23 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>video-rtmp</title>
+<link href="css/video-js.css" rel="stylesheet">
+<script src="js/video.js"></script>
+<script>
+  videojs.options.flash.swf = "video-js.swf";
+</script>
+</head>
+<body>
+
+  <video id="video" autoplay="true" muted class="video-js vjs-default-skin" preload="auto" width="1240" height="541" data-setup='{}'></video>
+
+</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+
+function GetRequest(){ 
+    var url = location.search; //获取url中"?"符后的字符串 
+    var theRequest = new Object(); 
+    if (url.indexOf("?") != -1) { 
+    var str = url.substr(1); 
+    strs = str.split("&"); 
+    for(var i = 0; i < strs.length; i ++) { 
+    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]); 
+                                            } 
+                                } 
+    return theRequest; 
+    }
+
+var Request = new Object(); 
+var Request = GetRequest(); 
+var url = Request['url'];  //例子截取地址栏上的url参数作为video的流地址
+    
+
+var player = videojs('video');  //获取到id为video的对象
+player.ready(function() {
+var myPlayer = this;
+myPlayer.src({ type: "rtmp/flv", src: url });  //使用src({})方法配置video的流地址，不能使用src=“”
+                    });
+</script>
+</html>
